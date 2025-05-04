@@ -13,6 +13,8 @@ mod cmd;
 mod fs_utils;
 mod messages;
 mod prompt;
+mod theme;
+mod themes_list;
 
 fn get_config_file_path(dir: &Path, config_path: &Path) -> (PathBuf, PathBuf) {
     let root_dir = dir.ancestors().find(|a| a.join(config_path).exists()).unwrap_or_else(|| {
@@ -139,6 +141,10 @@ fn main() {
         Command::Completion { shell } => {
             let cmd = &mut Cli::command();
             clap_complete::generate(shell, cmd, cmd.get_name().to_string(), &mut std::io::stdout());
+        }
+
+        Command::Theme { action } => {
+            theme::handle_command_line_action(action);
         }
     }
 }

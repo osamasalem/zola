@@ -4,6 +4,8 @@ use std::path::PathBuf;
 use clap::{Parser, Subcommand};
 use clap_complete::Shell;
 
+use crate::theme;
+
 #[derive(Parser)]
 #[clap(version, author, about)]
 pub struct Cli {
@@ -118,5 +120,11 @@ pub enum Command {
         /// Shell to generate completion for
         #[clap(value_enum)]
         shell: Shell,
+    },
+
+    /// Install theme from website
+    Theme {
+        #[clap(subcommand)]
+        action: theme::ThemeActions,
     },
 }
